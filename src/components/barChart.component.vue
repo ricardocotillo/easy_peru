@@ -4,7 +4,7 @@
 
 <script>
 import { Chart, LinearScale, BarController, CategoryScale, BarElement, Title } from 'chart.js'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 Chart.register(LinearScale, BarController, CategoryScale, BarElement, Title);
 export default {
   props: {
@@ -19,6 +19,7 @@ export default {
     }
   },
   setup(props) {
+    // data
     let chart;
     const chartEl = ref(null)
     const mydiv = ref(null)
@@ -38,16 +39,21 @@ export default {
             text: props.title,
           }
         },
-        aspectRatio: .9
+        aspectRatio: .6,
       },
     }
+    // watch
+    watch(() => props.title, () => {
+      config.data.labels = props.labels
+      config.data.datasets = props.datasets
+      config.options.plugins.title.text = props.title
+      chart.update()
+    })
 
+    // hooks
     onMounted(() => {
       chart = new Chart(chartEl.value, config)
     })
-
-    console.log(chart)
-
     return { chartEl, mydiv }
   }
 }

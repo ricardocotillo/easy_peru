@@ -1,44 +1,55 @@
 <template>
-  <div class="columns is-mobile is-centered">
-    <div class="column is-half">
-      <BarChart
-        v-if="labels.length > 0 && datasets.length > 0"
-        title="Tumbes"
-        :labels="labels"
-        :datasets="datasets"
-      />
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <BarChart
+            v-if="state.labels.length > 0 && state.datasets.length > 0"
+            :title="state.title"
+            :labels="state.labels"
+            :datasets="state.datasets"
+          />
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import axios from 'axios'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+// import axios from 'axios'
 import BarChart from '../components/barChart.component'
 export default {
   components: { BarChart },
   name: 'HelloWorld',
   setup() {
-    const labels = reactive([])
-    const datasets = reactive([])
-    axios.get('http://localhost:8000/pbi/?valor=constante&estructura=soles')
-      .then(res => {
-        const departamentos = res.data.departamentos
-        const d = departamentos[0]
-        const vapas = d.años.map(a => a.vapas_agregado_bruto)
-        const vapaMax = Math.max(...vapas)
-        const vapaMin = Math.min(...vapas)
-        const range = vapaMax - vapaMin
-        labels.push(...d.años.map(a => a.año))
-        datasets.push({
-          label: d.nombre,
+    // data
+    const store = useStore()
+
+    // computed
+    const data = computed(() => store.state.data)
+    const depSelec = computed(() => store.state.depSeleccionado)
+    const d = computed(() => data.value[depSelec.value])
+    const state = computed(() => {
+      const vapas = d.value.años.map(a => a.vapas_agregado_bruto)
+      const vapaMax = Math.max(...vapas)
+      const vapaMin = Math.min(...vapas)
+      const range = vapaMax - vapaMin
+      return {
+        title: d.value.nombre,
+        labels: d.value.años.map(a => a.año),
+        datasets: [{
+          label: d.value.nombre,
           data: vapas,
-          backgroundColor: d.años.map(a => {
+          backgroundColor: d.value.años.map(a => {
             return `hsl(${Math.floor(((a.vapas_agregado_bruto - vapaMin) / range) * 125)}, 50%, 50%)`
           }),
-        })
-      })
-    return { labels, datasets }
+        }],
+      }
+    })
+
+    return { state }
   }
 }
 </script>
