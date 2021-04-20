@@ -1,11 +1,11 @@
 <template>
-  <canvas class="bar-chart" ref="chartEl" width="400" height="400"></canvas>
+  <canvas class="bar-chart" ref="chartEl"></canvas>
 </template>
 
 <script>
-import { Chart, LinearScale, BarController, CategoryScale, BarElement } from 'chart.js'
+import { Chart, LinearScale, BarController, CategoryScale, BarElement, Title } from 'chart.js'
 import { onMounted, ref } from 'vue';
-Chart.register(LinearScale, BarController, CategoryScale, BarElement);
+Chart.register(LinearScale, BarController, CategoryScale, BarElement, Title);
 export default {
   props: {
     title: String,
@@ -31,12 +31,14 @@ export default {
       data,
       options: {
         responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: props.title,
           }
         },
-        aspectRatio: 2
+        aspectRatio: .9
       },
     }
 
@@ -52,7 +54,4 @@ export default {
 </script>
 
 <style>
-.bar-chart {
-  width: 700px;
-}
 </style>

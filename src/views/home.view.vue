@@ -1,10 +1,14 @@
 <template>
-  <BarChart
-    v-if="labels.length > 0 && datasets.length > 0"
-    title="Tumbes"
-    :labels="labels"
-    :datasets="datasets"
-  />
+  <div class="columns is-mobile is-centered">
+    <div class="column is-half">
+      <BarChart
+        v-if="labels.length > 0 && datasets.length > 0"
+        title="Tumbes"
+        :labels="labels"
+        :datasets="datasets"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -32,7 +36,6 @@ export default {
           backgroundColor: d.años.map(a => {
             return `hsl(${Math.floor(((a.vapas_agregado_bruto - vapaMin) / range) * 125)}, 50%, 50%)`
           }),
-          barThickness: 40,
         })
       })
     return { labels, datasets }
