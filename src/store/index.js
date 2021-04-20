@@ -5,12 +5,38 @@ import { departamentos } from '../commons/constants.common'
 export default createStore({
   state: {
     departamentos,
-    depSeleccionado: 0,
+    departamento: 0,
     data: [],
+    valores: [
+      {
+        key: 'constante', 
+        title: 'Valores a precios constantes 2007',
+      },
+      {
+        key: 'corriente', 
+        title: 'Valores a precios corrientes',
+      },
+    ],
+    valor: 0,
+    estructuras: [
+      {
+        key: 'soles',
+        title: 'Miles de soles',
+      },
+      {
+        key: 'porcentual',
+        title: 'Estructura porcentual',
+      },
+      {
+        key: 'variacion_porcentual',
+        title: 'Variación porcentual del índice de volumen físico',
+      },
+    ],
+    estructura: 0,
   },
   mutations: {
     seleccionarDep(state, d) {
-      state.depSeleccionado = d
+      state.departamento = d
     },
     poblarData(state, ds) {
       state.data.push(...ds)

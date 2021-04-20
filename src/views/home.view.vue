@@ -29,8 +29,8 @@ export default {
 
     // computed
     const data = computed(() => store.state.data)
-    const depSelec = computed(() => store.state.depSeleccionado)
-    const d = computed(() => data.value[depSelec.value])
+    const departamento = computed(() => store.state.departamento)
+    const d = computed(() => data.value[departamento.value])
     const state = computed(() => {
       const vapas = d.value.años.map(a => a.vapas_agregado_bruto)
       const vapaMax = Math.max(...vapas)
