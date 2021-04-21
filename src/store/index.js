@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import { departamentos } from '../commons/constants.common'
-const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '/api'
+const apiUrl = process.env.NODE_ENV === 'development' ? 'https://easyperu.cotillo.tech/api' : '/api'
 
 export default createStore({
   state: {
