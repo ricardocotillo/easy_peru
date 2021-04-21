@@ -35,6 +35,21 @@ export default createStore({
       },
     ],
     estructura: 0,
+    actividades: [
+      "Agricultura, Ganadería, Caza y Silvicultura",
+      "Pesca y Acuicultura",
+      "Extracción de Petróleo, Gas y Minerales",
+      "Manufactura",
+      "Electricidad, Gas y Agua",
+      "Construcción",
+      "Comercio", 
+      "Transporte, Almacen., Correo y Mensajería",
+      "Alojamiento y Restaurantes",
+      "Telecom. y Otros Serv. de Información",
+      "Administración Pública y Defensa",
+      "Otros Servicios",
+    ],
+    actividad: 0,
   },
   mutations: {
     seleccionarDep(state, d) {
