@@ -41,6 +41,7 @@ export default createStore({
       state.departamento = d
     },
     poblarData(state, ds) {
+      state.data.splice(0, state.data.length)
       state.data.push(...ds)
     },
     seleccionarValor(state, v) {

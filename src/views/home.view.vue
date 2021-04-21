@@ -49,7 +49,7 @@ export default {
       }
     })
 
-    return { state }
+    return { state, data }
   }
 }
 </script>
