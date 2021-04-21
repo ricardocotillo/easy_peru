@@ -1,7 +1,6 @@
 <template>
   <section class="section">
     <div class="container">
-      {{state.datasets}}
       <div class="columns is-centered">
         <div class="column is-two-thirds">
           <BarChart

@@ -49,7 +49,7 @@ export default createStore({
       "Administración Pública y Defensa",
       "Otros Servicios",
     ],
-    actividad: 0,
+    actividad: null,
   },
   mutations: {
     seleccionarDep(state, d) {
@@ -63,6 +63,9 @@ export default createStore({
     },
     seleccionarEstructura(state, e) {
       state.estructura = e
+    },
+    seleccionarActividad(state, a) {
+      state.actividad = a
     },
     startRequest(state) {
       state.requesting = true
@@ -82,6 +85,9 @@ export default createStore({
     seleccionarEstructura({ dispatch, commit }, e) {
       commit('seleccionarEstructura', e)
       return dispatch('obtenerData')
+    },
+    seleccionarActividad({commit}, a) {
+      commit('seleccionarActividad', a)
     },
     obtenerData({ commit, state }) {
       if (state.requesting) {

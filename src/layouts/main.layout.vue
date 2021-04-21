@@ -7,11 +7,30 @@
       <button
         v-for="(item, i) in navItems"
         :key="i"
-        class="button is-danger"
+        class="button is-danger is-small"
         :class="departamento != i ? 'is-light' : null"
         @click="seleccionarDep(i)"
       >
         {{ item }}
+      </button>
+    </div>
+    <h4 class="is-size-4 has-text-centered">Actividades económicas</h4>
+    <div class="buttons is-justify-content-center">
+      <button
+        class="button is-warning is-small"
+        :class="actividad == null ? null : 'is-light'"
+        @click="seleccionarActividad(null)"
+      >
+        Agregado Bruto
+      </button>
+      <button
+        v-for="(a, i) in actividades"
+        :key="i"
+        class="button is-warning is-small"
+        :class="actividad != i ? 'is-light' : null"
+        @click="seleccionarActividad(i)"
+      >
+        {{ a }}
       </button>
     </div>
     <slot></slot>
@@ -21,7 +40,7 @@
       <button
         v-for="(v, i) in valores"
         :key="v.key"
-        class="button is-success"
+        class="button is-success is-small"
         :class="valor != i ? 'is-light' : null"
         @click="seleccionarValor(i)"
       >
@@ -32,7 +51,7 @@
       <button
         v-for="(e, i) in estructuras"
         :key="e.key"
-        class="button is-info"
+        class="button is-info is-small"
         :class="estructura != i ? 'is-light' : null"
         @click="seleccionarEstructura(i)"
       >
@@ -56,11 +75,14 @@ export default {
     const estructuras = store.state.estructuras
     const estructura = computed(() => store.state.estructura)
     const navItems = store.state.departamentos.map(d => capitalizeText(d))
+    const actividades = store.state.actividades
+    const actividad = computed(() => store.state.actividad)
 
     // methods
     const seleccionarDep = d => store.dispatch('seleccionarDep', d)
     const seleccionarValor = v => store.dispatch('seleccionarValor', v)
     const seleccionarEstructura = e => store.dispatch('seleccionarEstructura', e)
+    const seleccionarActividad = a => store.dispatch('seleccionarActividad', a)
 
     return {
       navItems,
@@ -71,7 +93,10 @@ export default {
       estructura,
       departamento,
       seleccionarValor,
-      seleccionarEstructura
+      seleccionarEstructura,
+      seleccionarActividad,
+      actividades,
+      actividad,
     }
   }
 }
