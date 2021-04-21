@@ -43,7 +43,7 @@ export default {
       },
     }
     // watch
-    watch(() => props.title, () => {
+    watch(() => props.datasets, () => {
       config.data.labels = props.labels
       config.data.datasets = props.datasets
       config.options.plugins.title.text = props.title

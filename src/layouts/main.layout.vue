@@ -2,9 +2,10 @@
   <main>
     <h1 class="is-size-1 has-text-centered">Easy Perú</h1>
     <h4 class="is-size-4 has-text-centered">Departamentos</h4>
+    <div style="height: 10px"></div>
     <div class="buttons is-justify-content-center">
       <button
-        v-for="item, i in navItems"
+        v-for="(item, i) in navItems"
         :key="i"
         class="button is-danger"
         :class="departamento != i ? 'is-light' : null"
@@ -15,22 +16,25 @@
     </div>
     <slot></slot>
     <h4 class="is-size-4 has-text-centered">Tipos de valores</h4>
+    <div style="height: 10px"></div>
     <div class="buttons is-justify-content-center">
       <button
-        v-for="v, i in valores"
+        v-for="(v, i) in valores"
         :key="v.key"
         class="button is-success"
-        :class="valor != i ? 'is-light': null"
+        :class="valor != i ? 'is-light' : null"
+        @click="seleccionarValor(i)"
       >
         {{ v.title }}
       </button>
     </div>
     <div class="buttons is-justify-content-center">
       <button
-        v-for="e, i in estructuras"
+        v-for="(e, i) in estructuras"
         :key="e.key"
         class="button is-info"
         :class="estructura != i ? 'is-light' : null"
+        @click="seleccionarEstructura(i)"
       >
         {{ e.title }}
       </button>
@@ -53,11 +57,21 @@ export default {
     const navItems = store.state.departamentos.map(d => d.charAt(0).toUpperCase() + d.slice(1))
 
     // methods
-    const seleccionarDep = i => {
-      store.dispatch('seleccionarDep', i)
-    }
+    const seleccionarDep = d => store.dispatch('seleccionarDep', d)
+    const seleccionarValor = v => store.dispatch('seleccionarValor', v)
+    const seleccionarEstructura = e => store.dispatch('seleccionarEstructura', e)
 
-    return { navItems, seleccionarDep, valores, estructuras, valor, estructura, departamento }
+    return {
+      navItems,
+      seleccionarDep,
+      valores,
+      estructuras,
+      valor,
+      estructura,
+      departamento,
+      seleccionarValor,
+      seleccionarEstructura
+    }
   }
 }
 </script>
