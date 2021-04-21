@@ -1,6 +1,9 @@
 <template>
   <main>
     <h1 class="is-size-1 has-text-centered">Easy Perú</h1>
+    <h3 class="is-size-3 has-text-centered">
+      PBI de los Departamentos, según actividades económicas
+    </h3>
     <h4 class="is-size-4 has-text-centered">Departamentos</h4>
     <div style="height: 10px"></div>
     <div class="buttons is-justify-content-center">
@@ -59,6 +62,17 @@
       </button>
     </div>
   </main>
+  <div style="height: 40px"></div>
+  <footer>
+    <div class="container">
+      <p class="has-text-centered">
+        Este es un proyecto personal que pretende mostrar los datos estadísticos
+        del Perú de forma dináamica y fácil de vizualizar. Todos los datos han
+        sido extraidos del INEI
+      </p>
+    </div>
+  </footer>
+  <div style="height: 40px"></div>
 </template>
 
 <script>
