@@ -31,14 +31,19 @@ export default {
     const store = useStore()
 
     // computed
+    const actividades = store.state.actividades
+    const actividad = computed(() => store.state.actividad)
     const data = computed(() => store.state.data)
     const departamento = computed(() => store.state.departamento)
     const d = computed(() => data.value.departamentos[departamento.value])
     const state = computed(() => {
-      const vapas = d.value.años.map(a => a.vapas_agregado_bruto)
-      const vapaMax = Math.max(...vapas)
-      const vapaMin = Math.min(...vapas)
-      const range = vapaMax - vapaMin
+      const va = d.value.años.map(a => {
+        const acs = actividad.value === null ? a.actividades : a.actividades.filter(ac => ac.nombre === actividades[actividad.value])
+        return acs.reduce((p, c) => p + c.valor, 0)
+      })
+      const vaMax = Math.max(...va)
+      const vaMin = Math.min(...va)
+      const range = vaMax - vaMin
       return {
         departamento: capitalizeText(d.value.nombre),
         titulo: capitalizeText(`${data.value.titulo} ${data.value.tipo_de_valores} ${data.value.estructura}`),
@@ -47,9 +52,9 @@ export default {
         labels: d.value.años.map(a => a.año),
         datasets: [{
           label: d.value.nombre,
-          data: vapas,
-          backgroundColor: d.value.años.map(a => {
-            return `hsl(${Math.floor(((a.vapas_agregado_bruto - vapaMin) / range) * 125)}, 50%, 50%)`
+          data: va,
+          backgroundColor: va.map(a => {
+            return `hsl(${Math.floor(((a - vaMin) / range) * 125)}, 50%, 50%)`
           }),
         }],
       }
