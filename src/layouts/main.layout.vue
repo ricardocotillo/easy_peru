@@ -45,6 +45,7 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { capitalizeText } from '../commons/helpers.common'
 export default {
   setup() {
     // data
@@ -54,7 +55,7 @@ export default {
     const valor = computed(() => store.state.valor)
     const estructuras = store.state.estructuras
     const estructura = computed(() => store.state.estructura)
-    const navItems = store.state.departamentos.map(d => d.charAt(0).toUpperCase() + d.slice(1))
+    const navItems = store.state.departamentos.map(d => capitalizeText(d))
 
     // methods
     const seleccionarDep = d => store.dispatch('seleccionarDep', d)

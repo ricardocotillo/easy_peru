@@ -8,14 +8,14 @@ export default createStore({
     cancelTokenSource: axios.CancelToken.source(),
     departamentos,
     departamento: 0,
-    data: [],
+    data: {},
     valores: [
       {
-        key: 'constante', 
+        key: 'constante',
         title: 'Valores a precios constantes 2007',
       },
       {
-        key: 'corriente', 
+        key: 'corriente',
         title: 'Valores a precios corrientes',
       },
     ],
@@ -40,9 +40,8 @@ export default createStore({
     seleccionarDep(state, d) {
       state.departamento = d
     },
-    poblarData(state, ds) {
-      state.data.splice(0, state.data.length)
-      state.data.push(...ds)
+    poblarData(state, data) {
+      state.data = data
     },
     seleccionarValor(state, v) {
       state.valor = v
@@ -61,11 +60,11 @@ export default createStore({
     seleccionarDep({ commit }, d) {
       commit('seleccionarDep', d)
     },
-    seleccionarValor({dispatch, commit}, v) {
+    seleccionarValor({ dispatch, commit }, v) {
       commit('seleccionarValor', v)
       return dispatch('obtenerData')
     },
-    seleccionarEstructura({dispatch, commit}, e) {
+    seleccionarEstructura({ dispatch, commit }, e) {
       commit('seleccionarEstructura', e)
       return dispatch('obtenerData')
     },
@@ -80,7 +79,7 @@ export default createStore({
         const estructura = state.estructuras[state.estructura].key
         axios.get(`http://localhost:8000/pbi/?valor=${valor}&estructura=${estructura}`)
           .then(res => {
-            commit('poblarData', res.data.departamentos)
+            commit('poblarData', res.data)
             commit('endRequest')
             resolve()
           })
