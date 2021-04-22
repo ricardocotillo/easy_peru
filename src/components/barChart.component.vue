@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { Chart, LinearScale, BarController, CategoryScale, BarElement, Tooltip } from 'chart.js'
+import { Chart, LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title } from 'chart.js'
 import { onMounted, ref, watch } from 'vue';
-Chart.register(LinearScale, BarController, CategoryScale, BarElement, Tooltip);
+Chart.register(LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title);
 export default {
   props: {
     departamento: String,

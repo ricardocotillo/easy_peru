@@ -46,7 +46,7 @@ export default {
       const range = vaMax - vaMin
       return {
         departamento: capitalizeText(d.value.nombre),
-        titulo: capitalizeText(`${data.value.titulo} ${data.value.tipo_de_valores} ${data.value.estructura}`),
+        titulo: capitalizeText(`${data.value.titulo}. ${data.value.tipo_de_valores}. ${data.value.estructura}`),
         valor: capitalizeText(data.value.tipo_de_valores),
         estructura: capitalizeText(data.value.estructura),
         labels: d.value.años.map(a => a.año),

@@ -7,54 +7,75 @@
     <div style="height: 10px"></div>
     <div class="container">
       <div class="field is-grouped">
-        <div class="control">
-          <div class="select">
-            <select @change="seleccionarDep">
-              <option>Departamentos</option>
-              <option v-for="(item, i) in departamentos" :key="item" :value="i">
-                {{ item }}
-              </option>
-            </select>
+        <div class="field control">
+          <label class="label is-small has-text-centered">Departamentos</label>
+          <div class="control">
+            <div class="select is-small is-rounded">
+              <select @change="seleccionarDep">
+                <option
+                  v-for="(item, i) in departamentos"
+                  :key="item"
+                  :value="i"
+                >
+                  {{ item }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="control">
-          <div class="select">
-            <select @change="seleccionarActividad">
-              <option value="" disabled selected>Actividades económicas</option>
-              <option v-for="(a, i) in actividades" :key="a" :value="i">
-                {{ a }}
-              </option>
-            </select>
+        <div class="field control">
+          <label class="label is-small has-text-centered">
+            Actividades económicas
+          </label>
+          <div class="control">
+            <div class="select is-small is-rounded">
+              <select @change="seleccionarActividad">
+                <option v-for="(a, i) in actividades" :key="a" :value="i">
+                  {{ a }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="control">
-          <div class="select" @change="seleccionarValor">
-            <select>
-              <option value="" disabled selected>Tipos de valores</option>
-              <option v-for="(v, i) in valores" :key="v.key" :value="i">
-                {{ v.title }}
-              </option>
-            </select>
+        <div class="field control">
+          <label class="label is-small has-text-centered">
+            Tipos de valores
+          </label>
+          <div class="control">
+            <div class="select is-small is-rounded" @change="seleccionarValor">
+              <select>
+                <option v-for="(v, i) in valores" :key="v.key" :value="i">
+                  {{ v.title }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="control">
-          <div class="select">
-            <select @change="seleccionarEstructura">
-              <option value="" disabled selected>Estructura</option>
-              <option v-for="(v, i) in estructuras" :key="v.key" :value="i">
-                {{ v.title }}
-              </option>
-            </select>
+        <div class="field control">
+          <label class="label is-small has-text-centered">
+            Tipos de valores
+          </label>
+          <div class="control">
+            <div class="select is-small is-rounded">
+              <select @change="seleccionarEstructura">
+                <option value="" disabled selected>Estructura</option>
+                <option v-for="(v, i) in estructuras" :key="v.key" :value="i">
+                  {{ v.title }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="control">
-          <div class="select">
-            <select @change="seleccionarAño">
-              <option value="" disabled selected>Año</option>
-              <option v-for="(a, i) in años" :key="a" :value="i">
-                {{ a }}
-              </option>
-            </select>
+        <div class="field control">
+          <label class="label is-small has-text-centered">Año</label>
+          <div class="control">
+            <div class="select is-small is-rounded">
+              <select @change="seleccionarAño;">
+                <option v-for="(a, i) in años" :key="a" :value="i">
+                  {{ a }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
