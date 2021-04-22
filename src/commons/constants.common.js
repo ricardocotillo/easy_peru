@@ -1,4 +1,5 @@
 const departamentos = [
+    "todos los departamentos",
     "amazonas",
     "áncash",
     "apurímac",

@@ -38,7 +38,7 @@ export default {
     const d = computed(() => data.value.departamentos[departamento.value])
     const state = computed(() => {
       const va = d.value.años.map(a => {
-        const acs = actividad.value === null ? a.actividades : a.actividades.filter(ac => ac.nombre === actividades[actividad.value])
+        const acs = actividad.value === 0 ? a.actividades : a.actividades.filter(ac => ac.nombre === actividades[actividad.value])
         return acs.reduce((p, c) => p + c.valor, 0)
       })
       const vaMax = Math.max(...va)

@@ -4,63 +4,52 @@
     <h3 class="is-size-3 has-text-centered">
       PBI de los Departamentos, según actividades económicas
     </h3>
-    <h4 class="is-size-4 has-text-centered">Departamentos</h4>
     <div style="height: 10px"></div>
-    <div class="buttons is-justify-content-center">
-      <button
-        v-for="(item, i) in navItems"
-        :key="i"
-        class="button is-danger is-small"
-        :class="departamento != i ? 'is-light' : null"
-        @click="seleccionarDep(i)"
-      >
-        {{ item }}
-      </button>
-    </div>
-    <h4 class="is-size-4 has-text-centered">Actividades económicas</h4>
-    <div class="buttons is-justify-content-center">
-      <button
-        class="button is-warning is-small"
-        :class="actividad == null ? null : 'is-light'"
-        @click="seleccionarActividad(null)"
-      >
-        Agregado Bruto
-      </button>
-      <button
-        v-for="(a, i) in actividades"
-        :key="i"
-        class="button is-warning is-small"
-        :class="actividad != i ? 'is-light' : null"
-        @click="seleccionarActividad(i)"
-      >
-        {{ a }}
-      </button>
+    <div class="container">
+      <div class="field is-grouped">
+        <div class="control">
+          <div class="select">
+            <select @change="seleccionarDep">
+              <option>Departamentos</option>
+              <option v-for="(item, i) in navItems" :key="item" :value="i">
+                {{ item }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select">
+            <select @change="seleccionarActividad">
+              <option value="" disabled selected>Actividades económicas</option>
+              <option v-for="(a, i) in actividades" :key="a" :value="i">
+                {{ a }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select" @change="seleccionarValor">
+            <select>
+              <option value="" disabled selected>Tipos de valores</option>
+              <option v-for="(v, i) in valores" :key="v.key" :value="i">
+                {{ v.title }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <div class="select">
+            <select @change="seleccionarEstructura">
+              <option value="" disabled selected>Estructura</option>
+              <option v-for="(v, i) in estructuras" :key="v.key" :value="i">
+                {{ v.title }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
     <slot></slot>
-    <h4 class="is-size-4 has-text-centered">Tipos de valores</h4>
-    <div style="height: 10px"></div>
-    <div class="buttons is-justify-content-center">
-      <button
-        v-for="(v, i) in valores"
-        :key="v.key"
-        class="button is-success is-small"
-        :class="valor != i ? 'is-light' : null"
-        @click="seleccionarValor(i)"
-      >
-        {{ v.title }}
-      </button>
-    </div>
-    <div class="buttons is-justify-content-center">
-      <button
-        v-for="(e, i) in estructuras"
-        :key="e.key"
-        class="button is-info is-small"
-        :class="estructura != i ? 'is-light' : null"
-        @click="seleccionarEstructura(i)"
-      >
-        {{ e.title }}
-      </button>
-    </div>
   </main>
   <div style="height: 40px"></div>
   <footer>
@@ -93,10 +82,10 @@ export default {
     const actividad = computed(() => store.state.actividad)
 
     // methods
-    const seleccionarDep = d => store.dispatch('seleccionarDep', d)
-    const seleccionarValor = v => store.dispatch('seleccionarValor', v)
-    const seleccionarEstructura = e => store.dispatch('seleccionarEstructura', e)
-    const seleccionarActividad = a => store.dispatch('seleccionarActividad', a)
+    const seleccionarDep = e => store.dispatch('seleccionarDep', Number(e.target.value))
+    const seleccionarValor = e => store.dispatch('seleccionarValor', Number(e.target.value))
+    const seleccionarEstructura = e => store.dispatch('seleccionarEstructura', Number(e.target.value))
+    const seleccionarActividad = e => store.dispatch('seleccionarActividad', Number(e.target.value))
 
     return {
       navItems,

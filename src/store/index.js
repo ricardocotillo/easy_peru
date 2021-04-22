@@ -37,6 +37,7 @@ export default createStore({
     ],
     estructura: 0,
     actividades: [
+      "Agregado Bruto",
       "Agricultura, Ganadería, Caza y Silvicultura",
       "Pesca y Acuicultura",
       "Extracción de Petróleo, Gas y Minerales",
@@ -50,7 +51,7 @@ export default createStore({
       "Administración Pública y Defensa",
       "Otros Servicios",
     ],
-    actividad: null,
+    actividad: 0,
   },
   mutations: {
     seleccionarDep(state, d) {
