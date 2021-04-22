@@ -17,6 +17,7 @@ export default createStore({
     actividades,
     actividad: 0,
     años,
+    año: 0,
   },
   mutations: {
     seleccionarDep(state, d) {

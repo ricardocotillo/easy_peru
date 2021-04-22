@@ -11,7 +11,7 @@
           <div class="select">
             <select @change="seleccionarDep">
               <option>Departamentos</option>
-              <option v-for="(item, i) in navItems" :key="item" :value="i">
+              <option v-for="(item, i) in departamentos" :key="item" :value="i">
                 {{ item }}
               </option>
             </select>
@@ -47,6 +47,16 @@
             </select>
           </div>
         </div>
+        <div class="control">
+          <div class="select">
+            <select>
+              <option value="" disabled selected>Año</option>
+              <option v-for="(a, i) in años" :key="a" :value="i">
+                {{ a }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <slot></slot>
@@ -65,21 +75,17 @@
 </template>
 
 <script>
-import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { capitalizeText } from '../commons/helpers.common'
 export default {
   setup() {
     // data
     const store = useStore()
-    const departamento = computed(() => store.state.departamento)
     const valores = store.state.valores
-    const valor = computed(() => store.state.valor)
     const estructuras = store.state.estructuras
-    const estructura = computed(() => store.state.estructura)
-    const navItems = store.state.departamentos.map(d => capitalizeText(d))
+    const departamentos = store.state.departamentos.map(d => capitalizeText(d))
     const actividades = store.state.actividades
-    const actividad = computed(() => store.state.actividad)
+    const años = store.state.años
 
     // methods
     const seleccionarDep = e => store.dispatch('seleccionarDep', Number(e.target.value))
@@ -88,18 +94,15 @@ export default {
     const seleccionarActividad = e => store.dispatch('seleccionarActividad', Number(e.target.value))
 
     return {
-      navItems,
+      departamentos,
       seleccionarDep,
       valores,
       estructuras,
-      valor,
-      estructura,
-      departamento,
       seleccionarValor,
       seleccionarEstructura,
       seleccionarActividad,
       actividades,
-      actividad,
+      años,
     }
   }
 }
