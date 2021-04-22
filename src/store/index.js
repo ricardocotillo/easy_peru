@@ -35,6 +35,9 @@ export default createStore({
     seleccionarActividad(state, a) {
       state.actividad = a
     },
+    seleccionarAño(state, a) {
+      state.año = a
+    },
     startRequest(state) {
       state.requesting = true
     },
@@ -56,6 +59,9 @@ export default createStore({
     },
     seleccionarActividad({ commit }, a) {
       commit('seleccionarActividad', a)
+    },
+    seleccionarAño({commit}, a) {
+      commit('seleccionarAño', a)
     },
     obtenerData({ commit, state }) {
       if (state.requesting) {

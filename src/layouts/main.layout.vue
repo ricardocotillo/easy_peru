@@ -49,7 +49,7 @@
         </div>
         <div class="control">
           <div class="select">
-            <select>
+            <select @change="seleccionarAño">
               <option value="" disabled selected>Año</option>
               <option v-for="(a, i) in años" :key="a" :value="i">
                 {{ a }}
@@ -92,6 +92,7 @@ export default {
     const seleccionarValor = e => store.dispatch('seleccionarValor', Number(e.target.value))
     const seleccionarEstructura = e => store.dispatch('seleccionarEstructura', Number(e.target.value))
     const seleccionarActividad = e => store.dispatch('seleccionarActividad', Number(e.target.value))
+    const seleccionarAño = e => store.dispatch('seleccionarAño', Number(e.target.value))
 
     return {
       departamentos,
@@ -101,6 +102,7 @@ export default {
       seleccionarValor,
       seleccionarEstructura,
       seleccionarActividad,
+      seleccionarAño,
       actividades,
       años,
     }
