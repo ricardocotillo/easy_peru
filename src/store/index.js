@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import { departamentos } from '../commons/constants.common'
+import { departamentos, actividades, estructuras, años, valores } from '../commons/constants.common'
 const apiUrl = process.env.NODE_ENV === 'development' ? 'https://easyperu.cotillo.tech/api' : '/api'
 
 export default createStore({
@@ -10,48 +10,13 @@ export default createStore({
     departamentos,
     departamento: 0,
     data: {},
-    valores: [
-      {
-        key: 'constante',
-        title: 'Valores a precios constantes 2007',
-      },
-      {
-        key: 'corriente',
-        title: 'Valores a precios corrientes',
-      },
-    ],
+    valores,
     valor: 0,
-    estructuras: [
-      {
-        key: 'soles',
-        title: 'Miles de soles',
-      },
-      {
-        key: 'porcentual',
-        title: 'Estructura porcentual',
-      },
-      {
-        key: 'variacion_porcentual',
-        title: 'Variación porcentual del índice de volumen físico',
-      },
-    ],
+    estructuras,
     estructura: 0,
-    actividades: [
-      "Agregado Bruto",
-      "Agricultura, Ganadería, Caza y Silvicultura",
-      "Pesca y Acuicultura",
-      "Extracción de Petróleo, Gas y Minerales",
-      "Manufactura",
-      "Electricidad, Gas y Agua",
-      "Construcción",
-      "Comercio", 
-      "Transporte, Almacen., Correo y Mensajería",
-      "Alojamiento y Restaurantes",
-      "Telecom. y Otros Serv. de Información",
-      "Administración Pública y Defensa",
-      "Otros Servicios",
-    ],
+    actividades,
     actividad: 0,
+    años,
   },
   mutations: {
     seleccionarDep(state, d) {
@@ -88,7 +53,7 @@ export default createStore({
       commit('seleccionarEstructura', e)
       return dispatch('obtenerData')
     },
-    seleccionarActividad({commit}, a) {
+    seleccionarActividad({ commit }, a) {
       commit('seleccionarActividad', a)
     },
     obtenerData({ commit, state }) {
