@@ -58,7 +58,6 @@
           <div class="control">
             <div class="select is-small is-rounded">
               <select @change="seleccionarEstructura">
-                <option value="" disabled selected>Estructura</option>
                 <option v-for="(v, i) in estructuras" :key="v.key" :value="i">
                   {{ v.title }}
                 </option>

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import { departamentos, actividades, estructuras, años, valores } from '../commons/constants.common'
-const apiUrl = process.env.NODE_ENV === 'development' ? 'https://easyperu.cotillo.tech/api' : '/api'
+const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '/api'
 
 export default createStore({
   state: {
@@ -72,8 +72,9 @@ export default createStore({
       return new Promise((resolve) => {
         const valor = state.valores[state.valor].key
         const estructura = state.estructuras[state.estructura].key
-        axios.get(`${apiUrl}/pbi/?valor=${valor}&estructura=${estructura}`)
+        axios.get(`${apiUrl}/products/?valueType=${valor}&structure=${estructura}`)
           .then(res => {
+            console.log(res)
             commit('poblarData', res.data)
             commit('endRequest')
             resolve()
