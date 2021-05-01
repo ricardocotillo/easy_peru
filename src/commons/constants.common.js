@@ -44,7 +44,7 @@ const actividades = [
 
 const estructuras = [
   {
-    key: 'soles',
+    key: 'miles_de_soles',
     title: 'Miles de soles',
   },
   {
@@ -59,12 +59,12 @@ const estructuras = [
 
 const valores = [
   {
-    key: 'constante',
-    title: 'Valores a precios constantes 2007',
-  },
-  {
     key: 'corriente',
     title: 'Valores a precios corrientes',
+  },
+  {
+    key: 'constante',
+    title: 'Valores a precios constantes 2007',
   },
 ]
 
