@@ -55,7 +55,7 @@
         </div>
         <div class="field control">
           <label class="label is-small has-text-centered">
-            Tipos de valores
+            Estructura
           </label>
           <div class="control">
             <div class="select is-small is-rounded">
@@ -88,7 +88,7 @@
     <div class="container">
       <p class="has-text-centered">
         Este es un proyecto personal que pretende mostrar los datos estadísticos
-        del Perú de forma dináamica y fácil de vizualizar. Todos los datos han
+        del Perú de forma dinámica y fácil de vizualizar. Todos los datos han
         sido extraidos del INEI
       </p>
     </div>
