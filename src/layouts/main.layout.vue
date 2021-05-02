@@ -12,12 +12,13 @@
           <div class="control">
             <div class="select is-small is-rounded">
               <select @change="seleccionarDep">
+                <option value="0" selected>Todos los departamentos</option>
                 <option
-                  v-for="(item, i) in departamentos"
-                  :key="item"
-                  :value="i"
+                  v-for="item in departamentos"
+                  :key="item.id"
+                  :value="item.id"
                 >
-                  {{ item }}
+                  {{ capitalizeText(item.name) }}
                 </option>
               </select>
             </div>
@@ -30,8 +31,9 @@
           <div class="control">
             <div class="select is-small is-rounded">
               <select @change="seleccionarActividad">
-                <option v-for="(a, i) in actividades" :key="a" :value="i">
-                  {{ a }}
+                <option value="0">Agregado Bruto</option>
+                <option v-for="a in actividades" :key="a.id" :value="a.id">
+                  {{ a.name }}
                 </option>
               </select>
             </div>
@@ -95,6 +97,7 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 import { capitalizeText } from '../commons/helpers.common'
 export default {
@@ -103,9 +106,11 @@ export default {
     const store = useStore()
     const valores = store.state.valores
     const estructuras = store.state.estructuras
-    const departamentos = store.state.departamentos.map(d => capitalizeText(d))
-    const actividades = store.state.actividades
     const años = store.state.años
+
+    // computed
+    const departamentos = computed(() => store.state.departamentos)
+    const actividades = computed(() => store.state.actividades)
 
     // methods
     const seleccionarDep = e => store.dispatch('seleccionarDep', Number(e.target.value))
@@ -115,6 +120,7 @@ export default {
     const seleccionarAño = e => store.dispatch('seleccionarAño', Number(e.target.value))
 
     return {
+      capitalizeText,
       departamentos,
       seleccionarDep,
       valores,

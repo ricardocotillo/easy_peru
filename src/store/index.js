@@ -1,20 +1,20 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import { departamentos, actividades, estructuras, años, valores } from '../commons/constants.common'
+import { estructuras, años, valores } from '../commons/constants.common'
 const apiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '/api'
 
 export default createStore({
   state: {
     requesting: false,
     cancelTokenSource: axios.CancelToken.source(),
-    departamentos,
+    departamentos: [],
     departamento: 0,
     data: {},
     valores,
     valor: 0,
     estructuras,
     estructura: 0,
-    actividades,
+    actividades: [],
     actividad: 0,
     años,
     año: 0,
@@ -43,6 +43,12 @@ export default createStore({
     },
     endRequest(state) {
       state.requesting = false
+    },
+    setDepartments(state, payload) {
+      state.departamentos = payload
+    },
+    setEconomicActivities(state, payload) {
+      state.actividades = payload
     }
   },
   actions: {
@@ -60,7 +66,7 @@ export default createStore({
     seleccionarActividad({ commit }, a) {
       commit('seleccionarActividad', a)
     },
-    seleccionarAño({commit}, a) {
+    seleccionarAño({ commit }, a) {
       commit('seleccionarAño', a)
     },
     obtenerData({ commit, state }) {
@@ -70,9 +76,10 @@ export default createStore({
         commit('startRequest')
       }
       return new Promise((resolve) => {
-        const valor = state.valores[state.valor].key
-        const estructura = state.estructuras[state.estructura].key
-        axios.get(`${apiUrl}/products/?valueType=${valor}&structure=${estructura}`)
+        const valueType = state.valores[state.valor].key
+        const structure = state.estructuras[state.estructura].key
+        // const department = state.departamentos[state.departamento]
+        axios.get(`${apiUrl}/products/?valueType=${valueType}&structure=${structure}`)
           .then(res => {
             console.log(res)
             commit('poblarData', res.data)
@@ -80,6 +87,18 @@ export default createStore({
             resolve()
           })
       })
+    },
+    getDepartments({ commit }) {
+      axios.get(`${apiUrl}/departments/`)
+        .then(res => {
+          commit('setDepartments', res.data)
+        })
+    },
+    getEconomicActivities({ commit }) {
+      axios.get(`${apiUrl}/economic_activities/`)
+        .then(res => {
+          commit('setEconomicActivities', res.data)
+        })
     }
   },
 })

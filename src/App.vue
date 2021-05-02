@@ -16,6 +16,8 @@ export default {
     // data
     const cargando = ref(true)
     // created
+    store.dispatch('getDepartments')
+    store.dispatch('getEconomicActivities')
     store.dispatch('obtenerData').then(() => cargando.value = false)
     return { cargando }
   }
