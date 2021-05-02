@@ -18,7 +18,7 @@ export default {
     // created
     store.dispatch('getDepartments')
     store.dispatch('getEconomicActivities')
-    store.dispatch('obtenerData').then(() => cargando.value = false)
+    store.dispatch('getData').then(() => cargando.value = false)
     return { cargando }
   }
 }

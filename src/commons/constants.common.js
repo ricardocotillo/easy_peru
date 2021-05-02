@@ -47,14 +47,14 @@ const estructuras = [
     key: 'miles_de_soles',
     title: 'Miles de soles',
   },
-  {
-    key: 'porcentual',
-    title: 'Estructura porcentual',
-  },
-  {
-    key: 'variacion_porcentual',
-    title: 'Variación porcentual del índice de volumen físico',
-  },
+  // {
+  //   key: 'porcentual',
+  //   title: 'Estructura porcentual',
+  // },
+  // {
+  //   key: 'variacion_porcentual',
+  //   title: 'Variación porcentual del índice de volumen físico',
+  // },
 ]
 
 const valores = [

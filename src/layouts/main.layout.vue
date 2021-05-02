@@ -71,7 +71,7 @@
           <label class="label is-small has-text-centered">Año</label>
           <div class="control">
             <div class="select is-small is-rounded">
-              <select @change="seleccionarAño;">
+              <select @change="seleccionarAño">
                 <option v-for="(a, i) in años" :key="a" :value="i">
                   {{ a }}
                 </option>

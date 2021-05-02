@@ -39,6 +39,7 @@ export default createStore({
       state.año = a
     },
     startRequest(state) {
+      state.data = []
       state.requesting = true
     },
     endRequest(state) {
@@ -52,24 +53,27 @@ export default createStore({
     }
   },
   actions: {
-    seleccionarDep({ commit }, d) {
+    seleccionarDep({ dispatch, commit }, d) {
       commit('seleccionarDep', d)
+      return dispatch('getData')
     },
     seleccionarValor({ dispatch, commit }, v) {
       commit('seleccionarValor', v)
-      return dispatch('obtenerData')
+      return dispatch('getData')
     },
     seleccionarEstructura({ dispatch, commit }, e) {
       commit('seleccionarEstructura', e)
-      return dispatch('obtenerData')
+      return dispatch('getData')
     },
-    seleccionarActividad({ commit }, a) {
+    seleccionarActividad({ dispatch, commit }, a) {
       commit('seleccionarActividad', a)
+      return dispatch('getData')
     },
-    seleccionarAño({ commit }, a) {
+    seleccionarAño({ dispatch, commit }, a) {
       commit('seleccionarAño', a)
+      return dispatch('getData')
     },
-    obtenerData({ commit, state }) {
+    getData({ commit, state }) {
       if (state.requesting) {
         state.cancelTokenSource.cancel()
       } else {
@@ -78,8 +82,10 @@ export default createStore({
       return new Promise((resolve) => {
         const valueType = state.valores[state.valor].key
         const structure = state.estructuras[state.estructura].key
-        // const department = state.departamentos[state.departamento]
-        axios.get(`${apiUrl}/products/?valueType=${valueType}&structure=${structure}`)
+        const department = state.departamento
+        const activity = state.actividad
+        const year = state.año === 0 ? '' : state.años[state.año]
+        axios.get(`${apiUrl}/products/?valueType=${valueType}&structure=${structure}&department=${department}&economicActivity=${activity}&year=${year}`)
           .then(res => {
             console.log(res)
             commit('poblarData', res.data)
