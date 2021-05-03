@@ -87,7 +87,6 @@ export default createStore({
         const year = state.año === 0 ? '' : state.años[state.año]
         axios.get(`${apiUrl}/products/?valueType=${valueType}&structure=${structure}&department=${department}&economicActivity=${activity}&year=${year}`)
           .then(res => {
-            console.log(res)
             commit('poblarData', res.data)
             commit('endRequest')
             resolve()
