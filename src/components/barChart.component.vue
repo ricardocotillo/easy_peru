@@ -3,11 +3,15 @@
 </template>
 
 <script>
-import { Chart, LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title } from 'chart.js'
+import { Chart, LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title, PieController, ArcElement } from 'chart.js'
 import { onMounted, ref, watch } from 'vue';
-Chart.register(LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title);
+Chart.register(LinearScale, BarController, CategoryScale, BarElement, Tooltip, Title, PieController, ArcElement);
 export default {
   props: {
+    chartType: {
+      type: String,
+      default: 'bar',
+    },
     departamento: String,
     titulo: String,
     valor: String,
@@ -31,7 +35,7 @@ export default {
       datasets: props.datasets,
     }
     const config = {
-      type: 'bar',
+      type: props.chartType,
       data,
       options: {
         responsive: true,
@@ -64,6 +68,12 @@ export default {
       config.data.datasets = props.datasets
       config.options.plugins.title.text = props.titulo
       chart.update()
+    })
+
+    watch(() => props.chartType, () => {
+      chart.destroy()
+      config.type = props.chartType
+      chart = new Chart(chartEl.value, config)
     })
 
     // hooks

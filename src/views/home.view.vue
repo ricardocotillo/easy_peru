@@ -2,9 +2,20 @@
   <section class="section">
     <div class="container">
       <div class="columns is-centered">
+        <div class="column-1">
+          <img class="chart-type" :class="chartType == 'bar' ? 'active' : null" src="@/assets/bar-chart.svg" @click="changeChartType('bar')" />
+        </div>
+        <div class="column-1">
+          <img class="chart-type" :class="chartType == 'pie' ? 'active' : null" src="@/assets/pie-chart.svg" @click="changeChartType('pie')" />
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="columns is-centered">
         <div class="column is-two-thirds">
           <BarChart
             v-if="state.labels.length > 0 && state.datasets.length > 0"
+            :chartType="chartType"
             :departamento="state.departamento"
             :valor="state.valor"
             :estructura="state.estructura"
@@ -19,20 +30,26 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import BarChart from '../components/barChart.component'
 export default {
   components: { BarChart },
   setup() {
-    // data
+    // store
     const store = useStore()
+
+    // data
+    const chartType = ref('bar')
+
+    // methods
+    const changeChartType = (ct) => chartType.value = ct
 
     // computed
     const data = computed(() => store.state.data)
     const year = computed(() => store.state.año)
-    // const economicActivity = computed(() => store.state.actividad)
     const department = computed(() => store.state.departamento)
+
     const state = computed(() => {
       const values = {}
       if (year.value > 0) {
@@ -71,11 +88,21 @@ export default {
       }
     })
 
-    return { state, data }
+    return { state, data, chartType, changeChartType }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .chart-type {
+    width: 50px;
+    margin: 0 10px;
+    padding: .5em;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
+  .chart-type.active {
+    border-color: rgb(25, 25, 92);
+  }
 </style>
